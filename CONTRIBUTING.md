@@ -8,4 +8,5 @@ For the people that are willing to participate in contributing to our project, t
   While creating a pull request, you also need to specify what type/s of change/s was/were made by using tags. When creating a pull request, you can choose tags on the sidebar
   that shows up.
 * ### When creating an issue, specify it in as much detail as possible.  
-  Issues need to be specified in detail so that everyone clearly knows that your issue is about and therefore it is easier to come up with a solution.
+  Issues need to be specified in detail so that everyone clearly knows that your issue is about and therefore it is easier to come up with a solution. Images are encouraged, but
+  not required
