@@ -13,4 +13,4 @@ various algorithms, like the Shunting Yard Algorithm for properly calculating a 
 ## Things to Check Out
 * ### [Our Wiki](https://github.com/Moonyum/GodotAlgoExperiments/wiki)
 * ### [Other Important Documents](https://github.com/Moonyum/GodotAlgoExperiments/tree/more-organized-version/docs)
-* ### [Source Code for out Project](https://github.com/Moonyum/GodotAlgoExperiments/tree/more-organized-version/src)
+* ### [Source Code for Our Project](https://github.com/Moonyum/GodotAlgoExperiments/tree/more-organized-version/src)
