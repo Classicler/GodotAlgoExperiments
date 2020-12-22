@@ -7,7 +7,7 @@ Godot is a free, open source game engine, allowing for many opportunities for th
 various algorithms, like the Shunting Yard Algorithm for properly calculating a math expression from a String data type.
 
 ## Algorithms Added by Repository Version
-### Version 1.0.0
+### Version 1.0-beta.0.0
 **Shunting Yard** -- used to parse mathematical expressions from infix notation to postfix notation
 
 ## Things to Check Out
