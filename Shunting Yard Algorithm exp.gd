@@ -1,19 +1,22 @@
 extends Node2D
 
+#THIS IS STABLE VERSION 1.3.0 OF THIS ALGORITHM
+
+#Experimental Version uses labels in its script which refer to the labels included in "Shunting Yard Algorithm exp.tscn"
 onready var result_label = get_node("Result")
 onready var type_expr = get_node("TypeExpr")
 
-var invalid_tokens = RegEx.new().compile("[^0-9 \\/\\*\\-\\+!]")
+#All operators currently parse-able by this version of this algorithm
 var operators = ["^", "*", "/", "+", "-",]
 var possible_pre_unaries = ["-"]
-var possible_post_unaries = ["!"]
+var possible_post_unaries = ["!"] # NOTE: possible_pre_unaries[] and possible_post_unaries[] are used in this script version but are currently NOT performing their intended functions
+
+#Three arrays which help the algorithm work
 var output_queue = []
 var operator_stack = []
-
 var eval_vals = []
 
-var operator_key = [["+", "add", "to"], ["-", "subtract", "from"], ["*", "multiply", "by"], ["/", "divide", "by"], ["^", "raise", "to the power of"]]
-
+#Is the String in question a number?
 func is_number(number : String):
 	if float(number) == 0 or float(number) == -0:
 		if number == "0":
@@ -25,12 +28,14 @@ func is_number(number : String):
 	else:
 		return false
 
+#Is the String in question an operator defined in operators[]?
 func is_operator(operator : String):
 	for i in range(operators.size()):
 		if operator == operators[i]:
 			return true
 	return false
 
+#To account for the Order of Operations (PEMDAS, GEMDAS, BOMDAS, etc.; whatever floats your boat)
 func precedence(operator : String):
 	if operator == "^":
 		return 3
@@ -39,6 +44,7 @@ func precedence(operator : String):
 	elif operator == "+" or operator == "-":
 		return 1
 
+#Comparing
 func check_association(operator : String):
 	if !operator_stack.empty() and is_operator(operator_stack.back()):
 		if operator_stack.back() == "(":
@@ -95,6 +101,7 @@ func shunting_yard(expression : String):
 		
 		#If the iterating token has been confirmed to be a valid operator,...
 		if is_operator(expression[i]):
+			#The following lines check whether the operator in question is a unary bound to a number (ex. -9). THIS PART OF THE CODE DOES NOT FUNCTION AS INTENDED
 			var j = i - 1
 			while (!is_operator(expression[j]) and !is_number(expression[j]) and expression[j] != "(") and j >= 0:
 				j -= 1
@@ -116,13 +123,13 @@ func shunting_yard(expression : String):
 				operator_stack.append(expression[i])
 		
 		
-		#If the token is whitespace,...
+		#Of course, ignore all whitespace
 		if expression[i] == " ":
 			continue
 			
-		#If the token is a left parenthesis,...
+		#The grouping parentheses has the highest operator precedence
 		if expression[i] == "(":
-			#...push it into operator_stack[]
+			#Push it into operator_stack[] immediately
 			operator_stack.append(expression[i])
 			
 		#If the token is a right parenthesis,...
@@ -139,7 +146,7 @@ func shunting_yard(expression : String):
 	while !operator_stack.empty():
 		output_queue.append(operator_stack.pop_back())
 		
-
+#Function used to evaluate the postfix expression created by the shunting_yard() function
 func evaluate_expression():
 	for i in range(output_queue.size()):
 		if is_number(output_queue[i]):
@@ -153,28 +160,9 @@ func evaluate_expression():
 			eval_vals.append(str(result))
 		print(eval_vals)
 	return eval_vals.pop_back()
-			
-func _ready():
-#	print(output_queue)
-	var a : int
-	if a * a == 81:
-		print(a)
 	
-#1.  While there are tokens to be read:
-#2.        Read a token
-#3.        If it's a number add it to queue
-#4.        If it's an operator
-#5.               While there's an operator on the top of the stack with greater precedence:
-#6.                       Pop operators from the stack onto the output queue
-#7.               Push the current operator onto the stack
-#8.        If it's a left bracket push it onto the stack
-#9.        If it's a right bracket 
-#10.            While there's not a left bracket at the top of the stack:
-#11.                     Pop operators from the stack onto the output queue.
-#12.             Pop the left bracket from the stack and discard it
-#13. While there are operators on the stack, pop them to the queue
 
-func _on_LineEdit_text_entered(new_text):
+func _on_LineEdit_text_entered(new_text): #This signal comes from the LineEdit node in "Shunting Yard Algorithm exp.tscn"; The final version of this script will not have this
 	type_expr.text = "Your expression is:"
 	operator_stack.clear()
 	output_queue.clear()
