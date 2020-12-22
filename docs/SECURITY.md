@@ -19,6 +19,6 @@ declined, etc.
 If a vulnerability is found, first check to make sure that it is not listed in UPDATES.md. If it is listed there, that means the vulnerability you reported has already been reported,
 accepted, and is being resolved currently.
 
-If the vulnerabilty is not posted in UPDATES.md, you can email the repository owner at generalpizzaboy@gmail.com. The reported vulnerability will either be accepted and resolved as soon as possible or
-declined if the owner does not think that the reported vulnerability is a vulnerability. Updates regarding vulnerabilities and other things in this repository will be posted in 
+If the vulnerabilty is not posted in UPDATES.md, you can create an issue on Github explaining the vulnerability. You vulnerability may be declined 
+if the owner does not think that the reported vulnerability is a vulnerability. Updates regarding vulnerabilities and other things in this repository will be posted in 
 UPDATES.md as they are being resolved.
