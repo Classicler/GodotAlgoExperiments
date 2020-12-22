@@ -5,4 +5,4 @@
 ### Linear Regression
 
 # Bugs/Vulnerabilites being Worked On
-* # Shunting Yard Algorithm: Unary Operator support not working as expected
+* ### Shunting Yard Algorithm: Unary Operator support not working as expected
