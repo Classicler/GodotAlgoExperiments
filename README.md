@@ -1,7 +1,7 @@
 # GodotAlgoExperiments
 A repository for the experimentation of Algorithms in the Godot game engine
 
-# Current Stable Version: 1.0.0
+# Most Recent Version: 1.0-beta.0.0
 ## About
 Godot is a free, open source game engine, allowing for many opportunities for the community to help contribute to it. GodotAlgoExperiments uses the Godot game engine to test
 various algorithms, like the Shunting Yard Algorithm for properly calculating a math expression from a String data type.
