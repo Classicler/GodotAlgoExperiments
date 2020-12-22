@@ -9,3 +9,8 @@ various algorithms, like the Shunting Yard Algorithm for properly calculating a 
 ## Algorithms Added by Repository Version
 ### Version 1.0.0
 **Shunting Yard** -- used to parse mathematical expressions from infix notation to postfix notation
+
+## Things to Check Out
+* ### [Our Wiki](https://github.com/Moonyum/GodotAlgoExperiments/wiki)
+* ### [Other Important Documents](https://github.com/Moonyum/GodotAlgoExperiments/tree/more-organized-version/docs)
+* ### [Source Code for out Project](https://github.com/Moonyum/GodotAlgoExperiments/tree/more-organized-version/src)
