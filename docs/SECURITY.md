@@ -6,7 +6,7 @@ Currently, version 1.0.0 of this repository is being supported by our security p
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 1.0.0   | :white_check_mark: |
+| 1.0-beta.0.0   | :white_check_mark: |
 
 ## Reporting a Vulnerability
 
