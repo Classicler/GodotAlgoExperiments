@@ -1,4 +1,4 @@
-# Shunting Yard Algorithm Most Recent Version: 1.3.0
+# Shunting Yard Algorithm Most Recent Version: 1.3.1 (12/22/2020)
 
 ## How to use the Shunting Yard Algorithm in the scene:
 
@@ -6,6 +6,7 @@ When running the scene `Shunting Yard Algorithm.tscn` in the Godot Editor, there
 additional function `evaluate_expression()`in the script `Shunting Yard Algorithm.gd` is used to evaluate the expression after it has been parsed by `shunting_yard(expression)`.
 
 **The following are not supported by the algorithm at the moment:**
-* Unary operators
-* Functions
+* Unary operators succeeding operand
+* Math functions
 * Implicit Multiplication (`A(B)`)
+* Decimal numbers (ex. even 2.0 is not supported; use 2 instead)
