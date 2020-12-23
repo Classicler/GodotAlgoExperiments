@@ -13,11 +13,11 @@ various algorithms, like the Shunting Yard Algorithm for properly calculating a 
 **Shunting Yard** -- used to parse mathematical expressions from infix notation to postfix notation
 
 ## Things to Check Out
-### [Our Wiki](https://github.com/Moonyum/GodotAlgoExperiments/wiki)
+### [Our Wiki](https://github.com/Classicler/GodotAlgoExperiments/wiki)
 ### Important Documents  
-* [Code of Conduct](https://github.com/Moonyum/GodotAlgoExperiments/blob/main/CODE_OF_CONDUCT.md)
-* [Reporting Vulnerabilities](https://github.com/Moonyum/GodotAlgoExperiments/blob/main/SECURITY.md)
-* [How to Effectively Contribute](https://github.com/Moonyum/GodotAlgoExperiments/blob/main/CONTRIBUTING.md)
-* [Staying up-to-date with changes to our project](https://github.com/Moonyum/GodotAlgoExperiments/blob/main/UPDATES.md)
-* [List of Contributors](https://github.com/Moonyum/GodotAlgoExperiments/blob/main/CONTRIBUTORS.md)
-### [Source Code for Our Project](https://github.com/Moonyum/GodotAlgoExperiments/tree/main/src)
+* [Code of Conduct](https://github.com/Classicler/GodotAlgoExperiments/blob/main/CODE_OF_CONDUCT.md)
+* [Reporting Vulnerabilities](https://github.com/Classicler/GodotAlgoExperiments/blob/main/SECURITY.md)
+* [How to Effectively Contribute](https://github.com/Classicler/GodotAlgoExperiments/blob/main/CONTRIBUTING.md)
+* [Staying up-to-date with changes to our project](https://github.com/Classicler/GodotAlgoExperiments/blob/main/UPDATES.md)
+* [List of Contributors](https://github.com/Classicler/GodotAlgoExperiments/blob/main/CONTRIBUTORS.md)
+### [Source Code for Our Project](https://github.com/Classicler/GodotAlgoExperiments/tree/main/src)
