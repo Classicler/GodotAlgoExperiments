@@ -1,4 +1,4 @@
-# Shunting Yard Algorithm Most Recent Version: 1.3.1 (12/22/2020)
+# Shunting Yard Algorithm Most Recent Version: 1.3.2 (12/23/2020)
 
 ## How to use the Shunting Yard Algorithm in the scene:
 
