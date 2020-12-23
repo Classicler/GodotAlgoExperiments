@@ -1,7 +1,5 @@
 extends Node2D
 
-#THIS IS STABLE VERSION 1.3.0 OF THIS ALGORITHM
-
 #Experimental Version uses labels in its script which refer to the labels included in "Shunting Yard Algorithm exp.tscn"
 onready var result_label = get_node("Result")
 onready var type_expr = get_node("TypeExpr")
