@@ -10,9 +10,5 @@ The table below shows all of the versions of our project in existence and whethe
 
 ## Reporting a Vulnerability
 
-If a vulnerability is found, first check to make sure that it is not listed in UPDATES.md. If it is listed there, that means the vulnerability you reported has already been reported,
-accepted, and is being resolved currently.
-
-If the vulnerabilty is not posted in UPDATES.md, you can create an issue on Github explaining the vulnerability. You vulnerability may be declined 
-if the owner does not think that the reported vulnerability is a vulnerability. Updates regarding vulnerabilities and other things in this repository will be posted in 
-UPDATES.md as they are being resolved.
+If the vulnerabilty is found, you can email the project owner at generalpizzaboy@gmail.com. Your vulnerability may be declined 
+if the owner does not think that the reported vulnerability is a vulnerability, but if it is accepted, expect the vulnerability to be fixed within a week after reporting.
