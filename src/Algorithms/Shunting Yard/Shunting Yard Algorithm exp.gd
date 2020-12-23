@@ -1,20 +1,28 @@
 extends Node2D
 
-#Experimental Version uses labels in its script which refer to the labels included in "Shunting Yard Algorithm exp.tscn"
+# Refers to nodes in "Shunting Yard Algorithm.tscn." The final version will not have this, this is 
+# just experimentation
 onready var result_label = get_node("Result")
 onready var type_expr = get_node("TypeExpr")
 
-#All operators currently parse-able by this version of this algorithm
-var operators = ["^", "*", "/", "+", "-",]
+# Operators that are currently supported by this version of the algorithm
+var operators = ["^", "*", "/", "+", "-"]
+# Possible operators that are unaries that come before their operand
 var possible_pre_unaries = ["-"]
-var possible_post_unaries = ["!"] # NOTE: possible_pre_unaries[] and possible_post_unaries[] are used in this script version but are currently NOT performing their intended functions
+# Possible operators that are unaries that come after their operand [MIGHT BE PRESENT IN FUTURE VERSION]
+var possible_post_unaries = ["!"]
 
-#Three arrays which help the algorithm work
+# Stores the parsed expression after the algorithm finishes
 var output_queue = []
+# Store operators in a certain way in accordance with the algorithm
 var operator_stack = []
+# Used to help evaluate expression after parsing (used with output_queue[])
 var eval_vals = []
 
-#Is the String in question a number?
+# Array that will be used to explain the process of solving the expression [MAYBE IN FUTURE VERSION?]
+var operator_key = [["+", "add", "to"], ["-", "subtract", "from"], ["*", "multiply", "by"], ["/", "divide", "by"], ["^", "raise", "to the power of"]]
+
+#Is the string provided just a number in a string?
 func is_number(number : String):
 	if float(number) == 0 or float(number) == -0:
 		if number == "0":
@@ -26,14 +34,14 @@ func is_number(number : String):
 	else:
 		return false
 
-#Is the String in question an operator defined in operators[]?
+# Is the String provided a mathematical operator supported by this algorithm?
 func is_operator(operator : String):
 	for i in range(operators.size()):
 		if operator == operators[i]:
 			return true
 	return false
 
-#To account for the Order of Operations (PEMDAS, GEMDAS, BOMDAS, etc.; whatever floats your boat)
+# Determines precedence of an operator as defined by the Order of Operations
 func precedence(operator : String):
 	if operator == "^":
 		return 3
@@ -42,7 +50,8 @@ func precedence(operator : String):
 	elif operator == "+" or operator == "-":
 		return 1
 
-#Comparing
+# Compares operators. Useful to determine which operations should be done first
+# in accordance with the Order of Operations
 func check_association(operator : String):
 	if !operator_stack.empty() and is_operator(operator_stack.back()):
 		if operator_stack.back() == "(":
@@ -50,13 +59,15 @@ func check_association(operator : String):
 		if precedence(operator) <= precedence(operator_stack.back()):
 			return 1
 
-func calculate(a : float, b : float, operation : String):
+# To help calculate two_operand operations
+func calculate(a:float, b:float, operation:String):
 	if operation == "^": return pow(a, b)
 	if operation == "*": return a * b
 	if operation == "/": return a / b
 	if operation == "+": return a + b
 	if operation == "-": return a - b
 
+# Can the token be a unary operator?
 func indentify_unary(token : String):
 	for i in range(possible_pre_unaries.size()):
 		if token == possible_pre_unaries[i]:
@@ -89,9 +100,11 @@ func shunting_yard(expression : String):
 							break
 						else:
 							j += 1
+			# For preceding unary operator support
 			if !operator_stack.empty() and operator_stack.back().find("x") > -1:
-				output_queue.append(operator_stack.back()[0] + expression[i])
-				operator_stack.pop_back()
+				if operator_stack.back().find("x") > 0:
+					output_queue.append(operator_stack.back().replace("x", total_token))
+					operator_stack.pop_back()
 			else:
 				output_queue.append(total_token)
 			
@@ -99,18 +112,20 @@ func shunting_yard(expression : String):
 		
 		#If the iterating token has been confirmed to be a valid operator,...
 		if is_operator(expression[i]):
-			#The following lines check whether the operator in question is a unary bound to a number (ex. -9). THIS PART OF THE CODE DOES NOT FUNCTION AS INTENDED
 			var j = i - 1
-			while (!is_operator(expression[j]) and !is_number(expression[j]) and expression[j] != "(") and j >= 0:
+			while (!is_operator(expression[j]) and !is_number(expression[j]) and expression[j] != "(" and expression[j] != ")") and j > 0:
 				j -= 1
-			if (expression[j] == "(" or is_operator(expression[j])) and j >= 0 and indentify_unary(expression[i]) == -1:
-				var k = i + 1
-				while (!is_operator(expression[k]) or !is_number(expression[k]) or expression[k] != "(") and k < expression.length() - 1:
-					k += 1
-					
-				if is_number(expression[k]) or expression == "(":
-					operator_stack.append(expression[i] + "x")
-			else:		
+			if j < 0:
+				j = 0
+			if (expression[j] == "(" or is_operator(expression[j])) or !is_number(expression[j]) and j >= 0 and indentify_unary(expression[j]) != 0:
+				# Used to identify a unary operator that precedes its operand (as in -5)
+				if indentify_unary(expression[i]) == -1:
+					var k = i + 1
+					while (!is_operator(expression[k]) or !is_number(expression[k]) or expression[k] != "(") and k < expression.length() - 1:
+						k += 1
+					if is_number(expression[k]) or expression == "(":
+						operator_stack.append(expression[i] + "x")
+			else:
 				#CHECKING FOR OPERATOR ASSOCIATION/PRECEDENCE
 				#While the last element of operator_stack[] is an operation of higher precedence that the iterating token,...
 				while check_association(expression[i]) == 1:
@@ -121,13 +136,13 @@ func shunting_yard(expression : String):
 				operator_stack.append(expression[i])
 		
 		
-		#Of course, ignore all whitespace
+		#If the token is whitespace,...
 		if expression[i] == " ":
 			continue
 			
-		#The grouping parentheses has the highest operator precedence
+		#If the token is a left parenthesis,...
 		if expression[i] == "(":
-			#Push it into operator_stack[] immediately
+			#...push it into operator_stack[]
 			operator_stack.append(expression[i])
 			
 		#If the token is a right parenthesis,...
@@ -138,33 +153,34 @@ func shunting_yard(expression : String):
 			
 			#Discard the left parenthesis when reached by while loop
 			operator_stack.pop_back()
-		
-#		print(operator_stack)
 	#After expression iteration, transfer remaining elements of operator_stack[] to output_queue[], starting from the back
 	while !operator_stack.empty():
 		output_queue.append(operator_stack.pop_back())
 		
-#Function used to evaluate the postfix expression created by the shunting_yard() function
+		
+
 func evaluate_expression():
 	for i in range(output_queue.size()):
+		# All numbers go into output_queue, starting from the 0th index
 		if is_number(output_queue[i]):
 			eval_vals.append(output_queue[i])
 			
+		# Upon meeting an operator in the output queue, the last two number of eval_vals[] are removed
+		# and are applied to the two_operand operator in question.
 		if is_operator(output_queue[i]):
 			var val2 = float(eval_vals.pop_back())
 			var val1 = float(eval_vals.pop_back())
 			
 			var result = calculate(val1, val2, output_queue[i])
 			eval_vals.append(str(result))
-		print(eval_vals)
 	return eval_vals.pop_back()
-	
+			
 
-func _on_LineEdit_text_entered(new_text): #This signal comes from the LineEdit node in "Shunting Yard Algorithm exp.tscn"; The final version of this script will not have this
+# Refers to a signal from a node in "Shunting Yard Algorithm.tscn." The final version will not have
+# this
+func _on_LineEdit_text_entered(new_text):
 	type_expr.text = "Your expression is:"
 	operator_stack.clear()
 	output_queue.clear()
 	shunting_yard(new_text)
 	result_label.text = "Value: " + evaluate_expression()
-	print(output_queue)
-	
