@@ -2,7 +2,7 @@
 
 ## Supported Versions
 
-Currently, version 1.0.0 of this repository is being supported by our security policy.
+The table below shows all of the versions of our project in existence and whether our security policy supports them.
 
 | Version | Supported          |
 | ------- | ------------------ |
