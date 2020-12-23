@@ -1,5 +1,5 @@
 # GodotAlgoExperiments
-A repository for the experimentation of Algorithms in the Godot game engine
+A project for the experimentation of Algorithms in the Godot game engine
 
 # Most Recent Released Version: 1.0-beta.0.0
 # No Stable Version has been Releaesed yet
