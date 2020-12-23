@@ -6,7 +6,7 @@ The table below shows all of the versions of our project in existence and whethe
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 1.0-beta.0.0   | :white_check_mark: |
+| 1.0-beta.x.x   | :white_check_mark: |
 
 ## Reporting a Vulnerability
 
