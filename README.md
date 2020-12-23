@@ -19,4 +19,5 @@ various algorithms, like the Shunting Yard Algorithm for properly calculating a 
 * [Reporting Vulnerabilities](https://github.com/Moonyum/GodotAlgoExperiments/blob/main/SECURITY.md)
 * [How to Effectively Contribute](https://github.com/Moonyum/GodotAlgoExperiments/blob/main/CONTRIBUTING.md)
 * [Staying up-to-date with changes to our project](https://github.com/Moonyum/GodotAlgoExperiments/blob/main/UPDATES.md)
+* [List of Contributors](https://github.com/Moonyum/GodotAlgoExperiments/blob/main/CONTRIBUTORS.md)
 ### [Source Code for Our Project](https://github.com/Moonyum/GodotAlgoExperiments/tree/main/src)
