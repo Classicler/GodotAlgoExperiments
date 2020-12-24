@@ -1,8 +1,8 @@
 # GodotAlgoExperiments
 A project for the experimentation of Algorithms in the Godot game engine
 
-# Most Recent Released Version: 1.0.2-rc1.6 [pre-release] (12/23/2020)
-# Most Recent Stable Version Released: 1.0.0.3 (12/22/2020)
+# Most Recent Released Version: 1.0.2.6 (12/24/2020)
+# Most Recent Stable Version Released: 1.0.2.6 (12/24/2020)
 
 ## About
 Godot is a free, open source game engine, allowing for many opportunities for the community to help contribute to it. GodotAlgoExperiments uses the Godot game engine to test
