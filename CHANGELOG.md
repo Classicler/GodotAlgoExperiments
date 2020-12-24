@@ -1,5 +1,5 @@
 # v1.0
-## .2-beta.5
+## .2.x
 * ### Fixed bugs related to the rearranging of files in the project
 ## .1.1 (FAILED VERSION)
 * ### Changes to documents 
