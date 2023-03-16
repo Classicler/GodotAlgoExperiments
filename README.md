@@ -2,11 +2,10 @@
 A project for the experimentation of Algorithms in the Godot game engine
 
 # Most Recent Released Version: 1.0.2.6 (12/24/2020)
-# Most Recent Stable Version Released: 1.0.2.6 (12/24/2020)
+# Most Recent Stable Version Released: 1.0.2 (12/24/2020)
 
 ## About
-Godot is a free, open source game engine, allowing for many opportunities for the community to help contribute to it. GodotAlgoExperiments uses the Godot game engine to test
-various algorithms, like the Shunting Yard Algorithm.
+Godot is a free, open source game engine, allowing for many opportunities for the community to help contribute to it. Godot Algrithm Experiments uses the Godot game engine to testvarious algorithms in GD Script.
 
 ## Algorithms Added by Repository Version
 ### v1.0-beta.0.0
