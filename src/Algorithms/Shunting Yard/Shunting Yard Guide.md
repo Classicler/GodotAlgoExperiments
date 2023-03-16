@@ -7,6 +7,6 @@ additional function `evaluate_expression()`in the script `Shunting Yard Algorith
 
 **The following are not supported by the algorithm at the moment:**
 * Unary operators succeeding operand
-* Math functions
+* Math functions (trigonometric functions, summations, etc.)
 * Implicit Multiplication (`A(B)`)
 * Decimal numbers (ex. even 2.0 is not supported; use 2 instead)
