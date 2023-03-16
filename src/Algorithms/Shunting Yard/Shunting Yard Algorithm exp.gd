@@ -1,7 +1,6 @@
 extends Node2D
 
-# Refers to nodes in "Shunting Yard Algorithm.tscn." The final version will not have this, this is 
-# just experimentation
+# Refers to nodes in "Shunting Yard Algorithm.tscn"
 onready var result_label = get_node("Result")
 onready var type_expr = get_node("TypeExpr")
 
@@ -21,7 +20,10 @@ var eval_vals = []
 
 # Array that will be used to explain the process of solving the expression [MAYBE IN FUTURE VERSION?]
 var operator_key = [["+", "add", "to"], ["-", "subtract", "from"], ["*", "multiply", "by"], ["/", "divide", "by"], ["^", "raise", "to the power of"]]
+var explanations = []
+var expressions = []
 
+var original_expression:String
 #Is the string provided just a number in a string?
 func is_number(number : String):
 	if float(number) == 0 or float(number) == -0:
@@ -76,12 +78,23 @@ func indentify_unary(token : String):
 		if token == possible_post_unaries[i]:
 			return 1
 	return 0
+
 #SHUNTING YARD ALGORITHM
 #Three things needed:
 #	Expression to parse, taken in to function shunting_yard() as an argument
 #	Operator Stack, which is an array
 #	Output queue, which is an array
 func shunting_yard(expression : String):
+	#Removing whitespace before parsing
+	expression  = expression.replace(" ", "")
+	original_expression = expression
+	
+	#Error checks:
+	## Check is grouping elements () or [] come in their appropriate pairs
+	if expression.count("(", 0, 0) != expression.count(")") or expression.count("[", 0, 0) != expression.count("]"):
+		return "Expression Error: Missing complete pair(s) of parentheses or brackets"
+#	assert(expression.count("(", 0, 0) == expression.count(")", 0, 0), "Missing complete pair of parentheses or brackets")
+#	assert(expression.count("[", 0, 0) == expression.count("]", 0, 0), "Missing complete pair of parentheses or brackets")
 	#For each token in expression:
 	for i in range(expression.length()):
 		#If the iterating token is a number,...
@@ -101,9 +114,9 @@ func shunting_yard(expression : String):
 						else:
 							j += 1
 			# For preceding unary operator support
-			if !operator_stack.empty() and operator_stack.back().find("x") > -1:
-				if operator_stack.back().find("x") > 0:
-					output_queue.append(operator_stack.back().replace("x", total_token))
+			if !operator_stack.empty() and operator_stack.back().find("?") > -1:
+				if operator_stack.back().find("?") > 0:
+					output_queue.append(operator_stack.back().replace("?", total_token))
 					operator_stack.pop_back()
 			else:
 				output_queue.append(total_token)
@@ -113,18 +126,18 @@ func shunting_yard(expression : String):
 		#If the iterating token has been confirmed to be a valid operator,...
 		if is_operator(expression[i]):
 			var j = i - 1
-			while (!is_operator(expression[j]) and !is_number(expression[j]) and expression[j] != "(" and expression[j] != ")") and j > 0:
+			while (!is_operator(expression[j]) and !is_number(expression[j]) and expression[j] != "(" and expression[j] != ")" and expression[j] != "[" and expression[j] != "]") and j > 0:
 				j -= 1
 			if j < 0:
 				j = 0
-			if (expression[j] == "(" or is_operator(expression[j])) or !is_number(expression[j]) and j >= 0 and indentify_unary(expression[j]) != 0:
+			if (expression[j] == "(" or expression[j] == "[" or is_operator(expression[j])) or !is_number(expression[j]) and j >= 0 and indentify_unary(expression[j]) != 0:
 				# Used to identify a unary operator that precedes its operand (as in -5)
 				if indentify_unary(expression[i]) == -1:
 					var k = i + 1
-					while (!is_operator(expression[k]) or !is_number(expression[k]) or expression[k] != "(") and k < expression.length() - 1:
+					while (!is_operator(expression[k]) or !is_number(expression[k]) or expression[k] != "(" or expression[k] != "[") and k < expression.length() - 1:
 						k += 1
-					if is_number(expression[k]) or expression == "(":
-						operator_stack.append(expression[i] + "x")
+					if is_number(expression[k]) or expression == "(" or expression == "[":
+						operator_stack.append(expression[i] + "?")
 			else:
 				#CHECKING FOR OPERATOR ASSOCIATION/PRECEDENCE
 				#While the last element of operator_stack[] is an operation of higher precedence that the iterating token,...
@@ -134,30 +147,40 @@ func shunting_yard(expression : String):
 				
 				#Push the iterating token into operator_stacks[]
 				operator_stack.append(expression[i])
-		
-		
+				
+					
 		#If the token is whitespace,...
 		if expression[i] == " ":
 			continue
 			
 		#If the token is a left parenthesis,...
 		if expression[i] == "(":
-			#...push it into operator_stack[]
-			operator_stack.append(expression[i])
-			
+			if expression[i + 1] == ")":
+				return "Expression Error: empty grouping element"
+			else:
+				#...push it into operator_stack[]
+				operator_stack.append(expression[i])
+		elif expression[i] == "[":
+			if expression[i + 1] == "]":
+				return "Expression Error: empty grouping element"
+			else:
+				#...push it into operator_stack[]
+				operator_stack.append(expression[i])
 		#If the token is a right parenthesis,...
 		if expression[i] == ")":
 			#...starting from the back, transfer operators into output_queue[] until the left parenthesis becomes the last element in operator_stack[], given that operator_stack[] is not empty
 			while !operator_stack.empty() and operator_stack.back() != "(":
 				output_queue.append(operator_stack.pop_back())
-			
+		elif expression[i] == "]":
+			while !operator_stack.empty() and operator_stack.back() != "[":
+				output_queue.append(operator_stack.pop_back())
 			#Discard the left parenthesis when reached by while loop
 			operator_stack.pop_back()
 	#After expression iteration, transfer remaining elements of operator_stack[] to output_queue[], starting from the back
 	while !operator_stack.empty():
 		output_queue.append(operator_stack.pop_back())
-		
-		
+	
+	print(output_queue)	
 
 func evaluate_expression():
 	for i in range(output_queue.size()):
@@ -176,11 +199,13 @@ func evaluate_expression():
 	return eval_vals.pop_back()
 			
 
-# Refers to a signal from a node in "Shunting Yard Algorithm.tscn." The final version will not have
-# this
+# UPDATE ON THIS: This signal will be retained (it's not necessary to get rid of it)
 func _on_LineEdit_text_entered(new_text):
 	type_expr.text = "Your expression is:"
 	operator_stack.clear()
 	output_queue.clear()
 	shunting_yard(new_text)
-	result_label.text = "Value: " + evaluate_expression()
+	if typeof(shunting_yard(new_text)) == TYPE_STRING:
+		result_label.text = shunting_yard(new_text)
+	else:
+		result_label.text = "Value: " + evaluate_expression()
