@@ -1,4 +1,4 @@
-extends Node2D # Version 1.4.0 (Friday, March 17, 2023)
+extends Node2D # Version 1.3.3 (Friday, March 17, 2023)
 
 # Refers to nodes in "Shunting Yard Algorithm.tscn"
 onready var result_label = get_node("Result")
